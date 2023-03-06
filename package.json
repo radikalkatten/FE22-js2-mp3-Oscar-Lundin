@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "animejs": "^3.2.1",
-    "granim": "^2.0.0"
+    "animejs": "^3.2.1"
   }
 }
