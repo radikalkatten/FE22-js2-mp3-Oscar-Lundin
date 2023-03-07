@@ -27,3 +27,6 @@ body{
 #productContainer div{
   border: 2px black solid;
 }
+.inactive{
+  display: none;
+}
