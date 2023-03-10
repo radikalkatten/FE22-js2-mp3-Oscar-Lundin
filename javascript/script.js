@@ -1,4 +1,5 @@
 import anime from '../node_modules/animejs/lib/anime.es.js';
+import '../node_modules/jQuery/dist/jquery.min.js'
 const nameButton = document.getElementById('nameSend')
 const nameInput = document.getElementById('nameInput')
 const productContainer = document.getElementById('productContainer')
@@ -16,25 +17,19 @@ bodycount.innerText = `${total}`
 
 let x = 0
 
-// const myStore = new Store("My store", [
-// ]);
-
-// console.log(myStore);
 
 async function getProducts(){
   const fetchProducts = await fetch(productsURL)
   const data = await fetchProducts.json()
 
   let productID = Object.keys(data)
-  // console.log(productID)
 
   for(let i = 0; i < productID.length; i++){
     const databaseURLpost = `https://store-7d250-default-rtdb.europe-west1.firebasedatabase.app/products/${productID[i]}.json`
     const fetchPost = await fetch(databaseURLpost)
     const postData = await fetchPost.json()
     let stockAmount = postData.stock
-    console.log (productID[i])
-    // console.log(postData.Image)
+ 
     let productImg = document.createElement('img')
     let productTitel = document.createElement('h3')
     let productPrice = document.createElement('p')
@@ -61,9 +56,9 @@ async function getProducts(){
         stockAmount = 0
       }else{
         checkProduct(productID[i])
-        // pushCart(productID[i], productID[i])
+
         removeButton.classList.remove('inactive')
-        console.log(localStorage)
+
         stockAmount = stockAmount - 1
         stock.innerText = `Remaining: ${stockAmount}`
 
@@ -71,76 +66,77 @@ async function getProducts(){
     })
     removeButton.addEventListener('click', ()=>{
       removeProduct(productID[i])
-      console.log(localStorage)
+  
       stockAmount = stockAmount + 1
       stock.innerText = `Remaining: ${stockAmount}`
       if(stockAmount == postData.stock){
         removeButton.classList.add('inactive')
       }
     })
-    // console.log(productTitel.innerText)
+
   }
 }
-// localStorage.clear()
+
 getProducts()
 function checkProduct(prod){
   switch (prod){
     case 'bingus':
       bingus = bingus + 1;
       pushCart(prod, bingus)
-      console.log(bingus)
+
     break;
     case 'diablo':
       diablo3 = diablo3 + 1;
       pushCart(prod, diablo3)
-      console.log(diablo3)
+
     break;
     case 'juan':
       juan = juan + 1;
       pushCart(prod, juan)
-      console.log(juan)
+
     break;
     case 'mclaren':
       mclaren = mclaren + 1;
       pushCart(prod, mclaren)
-      console.log(mclaren)
+
     break;
     case 'foog':
       foog = foog + 1;
       pushCart(prod, foog)
-      console.log(foog)
+
     break;
     default:
       console.log('lul')
 
   }
 }
+
 function removeProduct(prod){
   switch (prod){
     case 'bingus':
       bingus = bingus - 1;
       pushCart(prod, bingus)
-      console.log(bingus)
+
     break;
     case 'Diablo 3 eternal':
       diablo3 = diablo3 - 1;
       pushCart(prod, diablo3)
-      console.log(diablo3)
+
     break;
     case 'juan':
       juan = juan - 1;
       pushCart(prod, juan)
-      console.log(juan)
+
     break;
     case 'Mclaren f1 team':
       mclaren = mclaren - 1;
       pushCart(prod, mclaren)
-      console.log(mclaren)
+
     break;
     case 'Lord foog':
       foog = foog - 1;
       pushCart(prod, foog)
-      console.log(foog)
+
     break;
     default:
       console.log('lul')
@@ -151,7 +147,7 @@ function getCookie(uname){
   let name = uname + "=";
   let decodedCookie = decodeURIComponent(document.cookie)
   let ca = decodedCookie.split(';')
-  // console.log(ca)
+
   for(let i = 0; i <ca.length;i++){
     let c = ca[i]
     while (c.charAt(0) == ' '){
@@ -165,7 +161,7 @@ function getCookie(uname){
 }
 function checkCustomerName(){
   const username = getCookie("Username")
-  // console.log(username)
+
   if(username != ""){
     let customerName = document.createElement('p')
     customerName.innerText = `Hello ` + username
@@ -180,10 +176,7 @@ async function postName(n){
   const header = {
     "Content-type": "application/json; charset=UTF-8"
   }
-  // let customerr = `${n}`
-  // const myCustomer = new Store(`${n}`, [])
-  // const postCustomer = JSON.parse(myCustomer)
-  // // const postCustomer = JSON.stringify(myCustomer)
+
 
   const bodyContent = {
     "name": `${n}`,
@@ -196,39 +189,35 @@ async function postName(n){
   fetch(databaseURLpost, init)
     .then(response => response.json())
     .then((data) => {
-      console.log(data.name)
-      // data.name
       const identify = data.name
       document.cookie = `ID = ${identify}`
     });
           
 }
-localStorage.clear()
+
 
 
 function pushCart(product, number){
   total = bingus + diablo3 + mclaren + foog + juan
   bodycount.innerText = `${total}`
-  console.log(total)
+
   if(product == localStorage.key(product)){
     localStorage.setItem(`${product}`, `${number}`)
   }else{
     localStorage.setItem(`${product}`, `${number}`)
   }
-  console.log(localStorage.key(product))
-  // console.log(localStorage)
+
+
   x++
 }
-// const myStorage = localStorage.getItem("myStore")
-// console.log(localStorage)
-// localStorage.clear()
+
 
 nameButton.addEventListener('click', (event)=>{
   event.preventDefault()
-  console.log('haaa')
+
   postName(nameInput.value)
   document.cookie = `Username=${nameInput.value}`
-  console.log(document.cookie)
+
   checkCustomerName()
 })
 checkCustomerName()

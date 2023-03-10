@@ -15,10 +15,15 @@ body{
   background-color: rgb(255, 255, 255);
   margin: 2px;
 }
-
+#cartt{
+  margin-left: 20%;
+  margin-right: 20%;
+}
 #productContainer{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 #productContainer img{
   width: 250px;
@@ -98,8 +103,9 @@ body{
   align-items: center;
 
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-
+  margin-left: 10%;
+  margin-right: 10%;
+  
 }
 
 #textInput{
