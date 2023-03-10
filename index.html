@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="javascript/script.js" defer></script>
-  <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/javascript/script.js" type="module" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="node_modules/animejs/lib/anime.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
+    crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 <body>
   <header>
+
     <div>
       <h1>Antscar's ladugård</h1>
     </div>
     <div>
-      <img src="images/shoppingcart.png" alt="shoppingcart logo" id="shoppingCartLogo">
-
+      <a href="/html/cart.html">
+        <img src="images/shoppingcart.png" alt="shoppingcart logo" id="shoppingCartLogo">
+      </a>
+      <p id="bodycount"></p>
+      
     </div>
   </header>
+  <div id="animation">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
   <main>
     <div id="customer">
-
+      
     </div>
     <div>
       <form action="" id="nameForm">
@@ -30,8 +45,11 @@
       </form>
     </div>
     <div id="productContainer">
-
+      
     </div>
   </main>
+  <div id="carttt">
+
+  </div>
 </body>
 </html>
