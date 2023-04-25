@@ -67,12 +67,13 @@ async function buyNow(){
   let item = localStorage
   let itemID = Object.keys(item)
   let amount = Object.values(item)
-
-  for(let i=0;i<item.length;i++){
+  for(let i=0;i<item.length - 1; i++){
     let databaseURLget = `https://store-7d250-default-rtdb.europe-west1.firebasedatabase.app/products/${itemID[i]}.json`
     let data = await fetch(databaseURLget)
     let database = await data.json()
-    let stock = database.stock
+    
+    // console.log(database)
+    let stock = parseInt(database.stock)
     stock = stock - amount[i]
     const header = {
       "Content-type": "application/json; charset=UTF-8"
