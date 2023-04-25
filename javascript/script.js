@@ -12,10 +12,30 @@ let diablo3 = 0
 let mclaren = 0
 let foog = 0
 let juan = 0
-let total = bingus + diablo3 + mclaren + foog + juan
+let total = 0
+let x = 0
+if(localStorage.cartNumbers >= 1){
+  total = parseInt(localStorage.cartNumbers)
+}
+  x = parseInt(localStorage.cartNumbers)
+if(localStorage.bingus >= 1){
+  bingus = parseInt(localStorage.bingus)
+}
+if(localStorage.diablo >= 1){
+  diablo3 = parseInt(localStorage.diablo)
+}
+if(localStorage.mclaren >= 1){
+  mclaren = parseInt(localStorage.mclaren)
+}
+if(localStorage.foog >= 1){
+  foog = parseInt(localStorage.foog)
+}
+if(localStorage.juan >= 1){
+  juan = parseInt(localStorage.juan)
+}
+// localStorage.clear()
 bodycount.innerText = `${total}`
 
-let x = 0
 
 
 async function getProducts(){
@@ -28,7 +48,20 @@ async function getProducts(){
     const databaseURLpost = `https://store-7d250-default-rtdb.europe-west1.firebasedatabase.app/products/${productID[i]}.json`
     const fetchPost = await fetch(databaseURLpost)
     const postData = await fetchPost.json()
-    let stockAmount = postData.stock
+    let stockAmount = postData.stock 
+    if(productID[i] == 'diablo'){
+      stockAmount = stockAmount - diablo3
+    }else if(productID[i] == 'mclaren'){
+      stockAmount = stockAmount - mclaren
+    }else if(productID[i] == 'foog'){
+      stockAmount = stockAmount - foog
+    }else if(productID[i] == 'bingus'){
+      stockAmount = stockAmount - bingus
+    }else if(productID[i] == 'juan'){
+      stockAmount = stockAmount - juan
+    }else{
+      console.log('couldnt find product')
+    }
  
     let productImg = document.createElement('img')
     let productTitel = document.createElement('h3')
@@ -42,6 +75,7 @@ async function getProducts(){
     productPrice.innerText = `Price: ${postData.price}`
     itemButton.innerText= "add to cart"
     removeButton.innerText= "remove from cart"
+    
     stock.innerText = `Remaining: ${stockAmount}`
     productContainer.appendChild(itemDiv)
     itemDiv.appendChild(productTitel)
@@ -51,27 +85,33 @@ async function getProducts(){
     itemDiv.appendChild(stock)
     itemDiv.appendChild(removeButton)
     removeButton.classList.add('inactive')
+    if(stockAmount != postData.stock){
+      removeButton.classList.remove('inactive')
+    }
     itemButton.addEventListener('click', () => {
       if(stockAmount <= 0){
         stockAmount = 0
       }else{
         checkProduct(productID[i])
-
         removeButton.classList.remove('inactive')
-
+        
         stockAmount = stockAmount - 1
         stock.innerText = `Remaining: ${stockAmount}`
+        console.log(localStorage)
 
       }
     })
     removeButton.addEventListener('click', ()=>{
+      console.log(productID[i])
       removeProduct(productID[i])
-  
+      
       stockAmount = stockAmount + 1
       stock.innerText = `Remaining: ${stockAmount}`
       if(stockAmount == postData.stock){
         removeButton.classList.add('inactive')
       }
+      console.log(localStorage)
+
     })
 
   }
@@ -118,7 +158,7 @@ function removeProduct(prod){
       pushCart(prod, bingus)
 
     break;
-    case 'Diablo 3 eternal':
+    case 'diablo':
       diablo3 = diablo3 - 1;
       pushCart(prod, diablo3)
 
@@ -128,12 +168,12 @@ function removeProduct(prod){
       pushCart(prod, juan)
 
     break;
-    case 'Mclaren f1 team':
+    case 'mclaren':
       mclaren = mclaren - 1;
       pushCart(prod, mclaren)
-
+      console.log(mclaren)
     break;
-    case 'Lord foog':
+    case 'foog':
       foog = foog - 1;
       pushCart(prod, foog)
 
@@ -209,9 +249,10 @@ function pushCart(product, number){
 
 
   x++
+  localStorage.setItem("cartNumbers", `${total}`)
 }
 
-
+console.log(localStorage)
 nameButton.addEventListener('click', (event)=>{
   event.preventDefault()
 
